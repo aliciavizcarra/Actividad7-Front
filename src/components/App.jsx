@@ -4,7 +4,7 @@ import { Outlet} from "react-router-dom";
 
 function App() {
 
-  const [lector,setLector] = useState("");
+  const [lector,setLector] = useState(null);
 
   return (
     <>
