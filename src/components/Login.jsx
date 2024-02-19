@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { login } from "../services/usuarios.service";
 import { useOutletContext } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Login(){
 
-    const[lector,setLector] = useOutletContext;
+    const[lector,setLector] = useOutletContext();
 
     const[email, setEmail]= useState("");
     const[password, setPassword] = useState("");
+    const navigate = useNavigate();
 
+    
     const doLogin = (e) =>{
         e.preventDefault();
-        login(email,password)
+        login(email,password,setLector,navigate)
     };
     
     return(

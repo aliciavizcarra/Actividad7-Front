@@ -1,8 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 
-const login =  (email, password) => {
-
-      const[lector,setLector]= useOutletContext;
+const login =  (email, password, setLector,navigate) => {
 
       fetch("http://localhost:8080/api/usuarios/login", {
         method: "POST",
@@ -21,14 +19,20 @@ const login =  (email, password) => {
         })
         .then(data=> {
             localStorage.setItem("token", data.token)
-            setLector(data.usuario)
+
+            const usuario={
+              email: data.usuario.email,
+              nombre: data.usuario.nombre,
+              apellidos: data.usuario.apellidos
+            }
+
+            setLector(usuario)
+            navigate(`/catalogo`)
         }
         )     
 }
 
-const registrar = async (usuario) =>{
-
-  e.preventDefault();
+const registrar = (usuario, navigate) =>{
 
   fetch("http://localhost:8080/api/usuarios/registro", {
     method: "POST",
@@ -40,9 +44,20 @@ const registrar = async (usuario) =>{
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      navigate(`/login`)
     });
 
 };
 
+const getCatalogo = (numPagina)=>{
+  fetch(`http://localhost:8080/api/libros/${numPagina}`)
+  .then((response) => {
+    if(response.ok){
+      return response.json()
+    }else{
+      console.log("Login incorrecto")
+    }
+  })   
+}
 
-export {login, registrar}
+export {login, registrar,getCatalogo}
