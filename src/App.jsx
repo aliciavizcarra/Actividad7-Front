@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Nav from "./Nav";
+import Nav from "./components/Libros/Nav";
 import { Outlet} from "react-router-dom";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <h1>Biblioteca Hasbulla</h1>
-      <Nav lector={lector}></Nav>
+      <Nav lector={lector} setLector={setLector} ></Nav>
       <Outlet context={[lector,setLector]}></Outlet>
     </>
   )

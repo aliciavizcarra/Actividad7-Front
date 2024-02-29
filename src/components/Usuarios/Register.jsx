@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { registrar } from "../services/usuarios.service";
+import { registrar } from "../../services/usuarios.service";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Registro(){

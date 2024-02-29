@@ -18,7 +18,7 @@ const login =  (email, password, setLector,navigate) => {
 
         })
         .then(data=> {
-            localStorage.setItem("token", data.token)
+            sessionStorage.setItem("token", data.token)
 
             const usuario={
               email: data.usuario.email,
@@ -49,15 +49,20 @@ const registrar = (usuario, navigate) =>{
 
 };
 
-const getCatalogo = (numPagina)=>{
+const getCatalogo = (numPagina,setCatalogo,setActualizarCatalogo)=>{
   fetch(`http://localhost:8080/api/libros/${numPagina}`)
   .then((response) => {
     if(response.ok){
       return response.json()
     }else{
-      console.log("Login incorrecto")
+      console.log("No se ha podido traer el catálogo")
     }
-  })   
+  })
+  .then((data)=>{
+    setCatalogo(data);
+    setActualizarCatalogo(true);
+  })
+  
 }
 
 export {login, registrar,getCatalogo}
