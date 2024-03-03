@@ -1,6 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import { Navigate, useNavigate } from "react-router-dom";
-import { getCatalogo } from "../../services/usuarios.service";
+import { getCatalogo, prestar } from "../../services/usuarios.service";
 import { useEffect, useState } from "react";
 import BarraBusqueda from "./BarraBusqueda";
 
@@ -13,9 +12,8 @@ export default function Catalogo(){
     const[filterText,setFilterText]=useState("");
 
     useEffect(()=>{
-        getCatalogo(numPagina,setCatalogo)
-        console.log(catalogo)
-    },[setCatalogo,numPagina])
+        getCatalogo(numPagina,setCatalogo,filterText)
+    },[setCatalogo,numPagina,filterText])
 
     function pasarPagina(){
         setNumPagina(numPagina+1)
@@ -27,6 +25,11 @@ export default function Catalogo(){
         }else{
             console.log("No hay páginas detrás")
         }
+    }
+
+    function prestarLibro(libro){
+        const id = libro.id
+        prestar(id);
     }
 
 
@@ -60,6 +63,7 @@ export default function Catalogo(){
                         <td></td>
                         <td></td>
                         <td>{libro.disponibles}</td>
+                        {lector?<button onClick={()=>{prestarLibro(libro)}}>Prestar</button>:""}
                     </tr>
                 )
                     })}

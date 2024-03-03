@@ -1,4 +1,3 @@
-import { useOutletContext } from "react-router-dom";
 
 const login =  (email, password, setLector,navigate) => {
 
@@ -49,8 +48,8 @@ const registrar = (usuario, navigate) =>{
 
 };
 
-const getCatalogo = (numPagina,setCatalogo,setActualizarCatalogo)=>{
-  fetch(`http://localhost:8080/api/libros/${numPagina}`)
+const getCatalogo = (numPagina,setCatalogo,filterText)=>{
+  fetch(`http://localhost:8080/api/libros/${filterText}/${numPagina}`)
   .then((response) => {
     if(response.ok){
       return response.json()
@@ -60,9 +59,85 @@ const getCatalogo = (numPagina,setCatalogo,setActualizarCatalogo)=>{
   })
   .then((data)=>{
     setCatalogo(data);
-    setActualizarCatalogo(true);
   })
   
 }
 
-export {login, registrar,getCatalogo}
+
+const getPrestamos = (setPrestamos)=>{
+
+  const token = sessionStorage.getItem("token");
+
+  if(!token){
+    console.log("No estas autorizado");
+    return;
+  }
+
+  fetch(`http://localhost:8080/api/libros`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.log("No se ha podido traer el catálogo");
+      }
+    })
+    .then((data) => {
+      setPrestamos(data);
+    });
+};
+
+const devolver = (ejemplar,setActualizarPrestamos)=>{
+
+  const token = sessionStorage.getItem("token");
+
+  if(!token){
+    console.log("No estas autorizado");
+    return;
+  }
+
+  fetch(`http://localhost:8080/api/libros/${ejemplar}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        console.log("Libro devuelto correctamente")
+        setActualizarPrestamos(true)
+      } else {
+        console.log("No se ha podido devolver el libro");
+      }
+    })
+
+}
+
+const prestar = (id)=>{
+  const token = sessionStorage.getItem("token");
+
+  if(!token){
+    console.log("No estas autorizado");
+    return;
+  }
+
+  fetch(`http://localhost:8080/api/libros/${id}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+  .then((response) => {
+    if (response.ok) {
+      console.log("Libro prestado correctamente")
+    } else {
+      console.log("No se ha podido prestar el libro");
+    }
+  })
+
+}
+
+export {login, registrar,getCatalogo,getPrestamos,devolver,prestar}
