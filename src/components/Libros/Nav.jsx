@@ -11,11 +11,10 @@ export default function Nav({lector,setLector}){
         <>    
         <nav>
             <ul>
-                <li><Link to="/">Inicio</Link></li>
-                <li><Link to="/registro">Registro</Link></li>
+                {lector?"":<li><Link to="/registro">Registro</Link></li>}
                 <li><Link to="/catalogo">Consultar el catalogo</Link></li>
                 <li><Link to="/prestados">Préstamos</Link></li>
-                <li><Link to="/login">LogIn</Link></li>
+                {lector?"":<li><Link to="/login">LogIn</Link></li>}
             </ul>
         </nav>
         {lector?<button onClick={()=>{cerrarSesion()}}>Cerrar Sesion</button>: ""}

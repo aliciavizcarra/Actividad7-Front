@@ -9,6 +9,7 @@ function App() {
   return (
     <>
       <h1>Biblioteca Hasbulla</h1>
+      {lector?<h3>Bienvenido/a {lector.nombre}</h3>:""}
       <Nav lector={lector} setLector={setLector} ></Nav>
       <Outlet context={[lector,setLector]}></Outlet>
     </>

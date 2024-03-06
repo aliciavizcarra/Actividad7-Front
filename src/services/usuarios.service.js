@@ -1,7 +1,8 @@
+import URL_SERVER from "./constantes"
 
 const login =  (email, password, setLector,navigate) => {
 
-      fetch("http://localhost:8080/api/usuarios/login", {
+      fetch(`${URL_SERVER}usuarios/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +34,7 @@ const login =  (email, password, setLector,navigate) => {
 
 const registrar = (usuario, navigate) =>{
 
-  fetch("http://localhost:8080/api/usuarios/registro", {
+  fetch(`${URL_SERVER}usuarios/registro`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -49,7 +50,7 @@ const registrar = (usuario, navigate) =>{
 };
 
 const getCatalogo = (numPagina,setCatalogo,filterText)=>{
-  fetch(`http://localhost:8080/api/libros/${filterText}/${numPagina}`)
+  fetch(`${URL_SERVER}libros/${filterText}/${numPagina}`)
   .then((response) => {
     if(response.ok){
       return response.json()
@@ -73,7 +74,7 @@ const getPrestamos = (setPrestamos)=>{
     return;
   }
 
-  fetch(`http://localhost:8080/api/libros`, {
+  fetch(`${URL_SERVER}libros`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -99,7 +100,7 @@ const devolver = (ejemplar,setActualizarPrestamos)=>{
     return;
   }
 
-  fetch(`http://localhost:8080/api/libros/${ejemplar}`, {
+  fetch(`${URL_SERVER}libros/${ejemplar}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`
@@ -124,7 +125,7 @@ const prestar = (id)=>{
     return;
   }
 
-  fetch(`http://localhost:8080/api/libros/${id}`, {
+  fetch(`${URL_SERVER}libros/${id}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`

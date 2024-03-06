@@ -10,6 +10,8 @@ export default function PrestamosUsuario({lector}){
         getPrestamos(setPrestamos);
     },[setPrestamos,actualizarPrestamos])
 
+    console.log(prestamos)
+
     function devolverLibro(libro){
         const ejemplar = libro.ejemplar.id
         devolver(ejemplar,setActualizarPrestamos);
@@ -17,7 +19,6 @@ export default function PrestamosUsuario({lector}){
 
     return(
         <>
-            <h3>Estos son tus préstamos + {lector.nombre}</h3>
             <table>
                 <thead>
                     <tr>
@@ -28,6 +29,9 @@ export default function PrestamosUsuario({lector}){
                         <th></th>
                         <th></th>
                         <th>Fecha Prestamo</th>
+                        <th></th>
+                        <th></th>
+                        <th>Fecha Devolucion</th>
                     </tr>
                 </thead>
 
@@ -42,7 +46,10 @@ export default function PrestamosUsuario({lector}){
                         <td></td>
                         <td></td>
                         <td>{libro.fechaprestamo}</td>
-                        <button onClick={()=>{devolverLibro(libro)}}>Devolver</button>
+                        <td></td>
+                        <td></td>
+                        <td>{libro.fechadevolucion?<td>{libro.fechadevolucion}</td>:<button onClick={()=>{devolverLibro(libro)}}>Devolver</button>}</td>
+                        
                     </tr>
                 )
                     })}
