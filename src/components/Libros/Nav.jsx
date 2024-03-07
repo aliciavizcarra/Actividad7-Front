@@ -13,7 +13,7 @@ export default function Nav({lector,setLector}){
             <ul>
                 {lector?"":<li><Link to="/registro">Registro</Link></li>}
                 <li><Link to="/catalogo">Consultar el catalogo</Link></li>
-                <li><Link to="/prestados">Préstamos</Link></li>
+                {lector?<li><Link to="/prestados">Préstamos</Link></li>:""}
                 {lector?"":<li><Link to="/login">LogIn</Link></li>}
             </ul>
         </nav>

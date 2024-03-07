@@ -117,7 +117,7 @@ const devolver = (ejemplar,setActualizarPrestamos)=>{
 
 }
 
-const prestar = (id)=>{
+const prestar = (id,setActualizarCatalogo)=>{
   const token = sessionStorage.getItem("token");
 
   if(!token){
@@ -133,6 +133,7 @@ const prestar = (id)=>{
   })
   .then((response) => {
     if (response.ok) {
+      setActualizarCatalogo(true)
       console.log("Libro prestado correctamente")
     } else {
       console.log("No se ha podido prestar el libro");

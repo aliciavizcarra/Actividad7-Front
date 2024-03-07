@@ -10,10 +10,11 @@ export default function Catalogo(){
     const[numPagina,setNumPagina]= useState(0);
     const[catalogo,setCatalogo]= useState([]);
     const[filterText,setFilterText]=useState("");
+    const[actualizarCatalogo,setActualizarCatalogo]=useState(false)
 
     useEffect(()=>{
         getCatalogo(numPagina,setCatalogo,filterText)
-    },[setCatalogo,numPagina,filterText])
+    },[numPagina,filterText,actualizarCatalogo])
 
     function pasarPagina(){
         setNumPagina(numPagina+1)
@@ -28,8 +29,9 @@ export default function Catalogo(){
     }
 
     function prestarLibro(libro){
+        console.log(libro)
         const id = libro.id
-        prestar(id);
+        prestar(id,setActualizarCatalogo);
     }
 
 

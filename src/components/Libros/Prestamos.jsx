@@ -4,6 +4,7 @@ import PrestamosUsuario from "./PrestamosUsuario";
 export default function Prestamos(){
 
     const[lector,setLector] = useOutletContext();
+    
 
     return(
         <>

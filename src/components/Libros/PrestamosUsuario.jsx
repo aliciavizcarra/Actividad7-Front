@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
-import { devolver, getPrestamos } from "../../services/usuarios.service";
+import { devolver, getCatalogo, getPrestamos } from "../../services/usuarios.service";
 
 export default function PrestamosUsuario({lector}){
 
     const[prestamos,setPrestamos]=useState([]);
-    const[actualizarPrestamos,setActualizarPrestamos]= useState(false)
-    
+    const[actualizarPrestamos,setActualizarPrestamos]= useState(false);
+
+
     useEffect(()=>{
         getPrestamos(setPrestamos);
-    },[setPrestamos,actualizarPrestamos])
+    },[actualizarPrestamos])
 
     console.log(prestamos)
 
